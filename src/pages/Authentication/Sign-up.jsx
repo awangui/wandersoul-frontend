@@ -40,7 +40,8 @@ const SignUp = () => {
             const data = await response.json();
     
             if (response.ok) {
-                setResponseMessage('Account created successfully.');
+                setResponseMessage('Account created successfully.Please login.');
+                setTimeout(() => window.location.href='/login', 2000);
             } else {
                 setResponseMessage(data.error || 'An error occurred.');
             }
@@ -100,7 +101,9 @@ const SignUp = () => {
                     />
                 </div>
                 <button type="submit">Sign Up</button>
-                <p>{responseMessage}</p>
+                <p style={{ color: responseMessage === 'Account created successfully.' ? 'green' : 'red' }}>
+                    {responseMessage}
+                </p>
             </form>
         </div>
     );
