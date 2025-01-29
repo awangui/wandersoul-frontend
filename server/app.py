@@ -11,6 +11,9 @@ CORS(app)
 
 db.init_app(app)  # Initialize DB before running migrations
 migrate = Migrate(app, db)
+# Create the tables in the database (if they don't exist)
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
@@ -35,20 +38,27 @@ def get_user(id):
 def create_user():
     try:
         data = request.get_json()  # Get JSON data from request
+        fname=data.get("fname")
+        sname=data.get("sname")
+        email=data.get("email")
+        password=data.get("password")
+        role_id=data.get("role_id")
+      #perform validation
         if not data:
             return {"error": "Invalid request, no data provided"}, 400
+        if not fname or not sname or not email or not password:
+            return {"error": "Invalid request, missing required data"}, 400
+        #check if email already exists
+        if User.query.filter_by(email=email).first():
+            return {"error": "Invalid request, email already exists"}, 400
+        # Create new user object
+        new_user = User(fname=fname, sname=sname, email=email, password=password, role_id=role_id or 1)
+    
 
-        user = User(
-            name=data["name"],
-            email=data["email"],
-            password=data["password"],  # ⚠️ Hash passwords in real apps
-            role_id=data.get("role_id", 1)  # Default role_id to 1 if not provided
-        )
-
-        db.session.add(user)
+        db.session.add(new_user)  # Add new user to database session
         db.session.commit()
 
-        return user.to_dict(), 201  # Return user object with success code
+        return new_user.to_dict(), 201  # Return user object with success code
 
     except Exception as e:
         print("Error:", e)  # Debugging

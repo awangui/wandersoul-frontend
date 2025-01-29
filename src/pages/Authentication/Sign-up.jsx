@@ -8,26 +8,53 @@ const SignUp = () => {
         password: '',
     });
 
+    const [responseMessage, setResponseMessage] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             [name]: value,
-        });
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted:', formData);
-    };
+    
+        const newUser = { 
+            fname: formData.fname,  // Send as separate fields
+            sname: formData.sname,  
+            email: formData.email,
+            password: formData.password 
+        };
+    
+        try {
+            const response = await fetch('http://127.0.0.1:5555/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                setResponseMessage('Account created successfully.');
+            } else {
+                setResponseMessage(data.error || 'An error occurred.');
+            }
+        } catch (error) {
+            setResponseMessage('Error connecting to the server.');
+        }
+    };    
 
     return (
         <div className='register'>
-            
             <form onSubmit={handleSubmit}>
-            <h2>Sign Up</h2>
-            <p>Create an account</p>
+                <h2>Sign Up</h2>
+                <p>Create an account</p>
+
                 <div>
                     <label htmlFor="fname">First Name:</label>
                     <input
@@ -73,6 +100,7 @@ const SignUp = () => {
                     />
                 </div>
                 <button type="submit">Sign Up</button>
+                <p>{responseMessage}</p>
             </form>
         </div>
     );

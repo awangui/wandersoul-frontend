@@ -4,7 +4,8 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = 'users'
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(100),nullable=False)
+    fname=db.Column(db.String(100),nullable=False)
+    sname=db.Column(db.String(100),nullable=False)
     email=db.Column(db.String(100),nullable=False)
     password=db.Column(db.String(100),nullable=False)
     role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
@@ -13,7 +14,8 @@ class User(db.Model):
     def to_dict(self):
         return {
             'id':self.id,
-            'name':self.name,
+            'fname':self.fname,
+            'sname':self.sname,
             'email':self.email,
             'role_id':self.role_id,
             'created_at':self.created_at,
@@ -73,6 +75,7 @@ class Guide(db.Model):
             'contact_info': self.contact_info,
             'created_at': self.created_at,
         }
+
 # class Review():
 #     pass
 # class wishlist():
