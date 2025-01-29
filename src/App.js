@@ -5,6 +5,7 @@ import Benefits from "./pages/Home/Benefits";
 import Reviews from "./pages/Home/Reviews";
 import Login from "./pages/Authentication/Login";
 import SignUp from "./pages/Authentication/Sign-up";
+import About from "./pages/About";
 import Destinations from "./pages/Destination/Destinations"
 import Footer from "./components/layout/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,6 +16,7 @@ function App() {
     <Navbar />
     
     <Routes>
+      <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/destinations" element={<Destinations/>}/>
