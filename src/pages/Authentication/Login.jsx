@@ -4,20 +4,36 @@ import './Authentication.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
+        const user = { email, password };
+        try {
+            const response = await fetch('http://127.0.0.1:5555/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                window.location.href = '/';
+            } else {
+                setResponseMessage(data.error || 'An error occurred.');
+            }
+        } catch (error) {
+            setResponseMessage('Error connecting to the server.');
+        }
     };
 
     return (
         <div className="login">
-           
             <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <p>Welcome back!</p>
+                <h2>Login</h2>
+                <p>Welcome back!</p>
                 <div>
                     <label>Email:</label>
                     <input
@@ -37,6 +53,7 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit">Login</button>
+                {responseMessage && <p className="error">{responseMessage}</p>}
             </form>
         </div>
     );
