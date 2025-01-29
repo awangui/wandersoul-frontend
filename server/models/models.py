@@ -9,7 +9,7 @@ class User(db.Model):
     password=db.Column(db.String(100),nullable=False)
     role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
     created_at=db.Column(db.DateTime,server_default=db.func.now())
-    role=db.relationship('Role',backref='users',lazy=True)
+    # role=db.relationship('Role',backref='users',lazy=True)
     def to_dict(self):
         return {
             'id':self.id,
@@ -17,7 +17,7 @@ class User(db.Model):
             'email':self.email,
             'role_id':self.role_id,
             'created_at':self.created_at,
-            'role':self.role.name
+            # 'role':self.role.name
         }
 class Role(db.Model):
     __tablename__ = 'roles'
