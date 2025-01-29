@@ -1,0 +1,39 @@
+.benefits-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.benefits-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+.benefits-section  h3{
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefit {
+    font-size: 1.2em;
+    margin: 15px 20px;
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 4px;
+    text-align: left;
+    letter-spacing: normal;
+}
+.benefit p{
+    color: #555;
+}
+
+.benefits-list li::before {
+    content: "✔";
+    color: #4CAF50;
+    margin-right: 10px;
+}

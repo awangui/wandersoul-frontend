@@ -1,0 +1,99 @@
+:root {
+    --primary-color: #ef7503;
+    --secondary-color: #B60842;
+    --background-dark-color:#2D0B14;
+    --background-light-color: #f9f9f9; 
+    --font-color: #333; 
+    --white-color: #fff; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light-color);
+    color: var(--font-color);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: var(--primary-color); /* Change link color on hover */
+}
+
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.1;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* h3 {
+    font-size: 1.9rem;
+    font-weight: 500;
+} */
+
+h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+p {
+    padding: 0.8rem 0;
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    font-size: 1.1rem;
+}
+
+/* Global container utility */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.active{
+  border-bottom: solid 2px #B60842
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}
