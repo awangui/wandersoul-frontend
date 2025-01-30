@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from faker import Faker
 db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = 'users'
@@ -39,6 +38,7 @@ class Destination(db.Model):
     description = db.Column(db.String(500), nullable=False)
     category = db.Column(db.String(100), nullable=False)
     safety_rating = db.Column(db.Integer, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
     activities = db.Column(db.String(500), nullable=False)
     image = db.Column(db.String(500), nullable=False)
     # reviews = db.relationship('Review', backref='destination', lazy=True)
@@ -52,6 +52,7 @@ class Destination(db.Model):
             'description': self.description,
             'category': self.category,
             'safety_rating': self.safety_rating,
+            'location': self.location,
             'activities': self.activities,
             'image': self.image,
             'created_at': self.created_at,

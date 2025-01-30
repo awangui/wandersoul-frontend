@@ -1,0 +1,76 @@
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Optional: to maintain space between cards */
+    margin: 20px 0;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 1 calc(33.33% - 20px); /* 33.33% width minus some margin */
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-content h2 {
+    font-size: 1.5em;
+}
+
+.card-content p {
+    color: #555;
+}
+.tag, .tag:hover {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px;
+    text-decoration: none;
+}
+.tag-name{
+    font-size: 0.8em;
+}
+/* Media queries for responsive design */
+@media (max-width: 1200px) {
+    .card {
+        flex: 0 1 calc(50% - 20px); /* 50% width minus some margin */
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 0 1 calc(100% - 20px); /* 100% width minus some margin */
+    }
+}

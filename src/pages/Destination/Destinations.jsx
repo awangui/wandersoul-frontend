@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import "./Destinations.css"; // Import the CSS file for styling
 
 const Destinations = () => {
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
-    // Replace with your backend server's address
     fetch("http://127.0.0.1:5555/destinations")
       .then((response) => {
         if (!response.ok) {
@@ -23,16 +23,24 @@ const Destinations = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h1>Destinations</h1>
-      <ul>
+      <div className="card-grid row">
         {destinations.map((destination) => (
-          <li key={destination.id}>
-            <h2>{destination.name}</h2>
-            <p>{destination.description}</p>
-          </li>
+          <div className="card" key={destination.id}>
+            <img src={destination.image} alt={destination.name} className="card-image" />
+            <div className="card-content">
+              <h2>{destination.name}</h2>
+              <p>{destination.location}</p>
+<span className="tag">{destination.category}</span> 
+          <span className="tag">Safety Rating: {destination.safety_rating}</span>
+             
+              <p>{destination.activities}</p>
+              <p>{destination.description}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
