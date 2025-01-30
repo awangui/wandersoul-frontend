@@ -5,14 +5,20 @@ const Destinations = () => {
 
   useEffect(() => {
     // Replace with your backend server's address
-    fetch("api/destinations")
+    fetch("http://127.0.0.1:5555/destinations")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch destinations");
         }
         return response.json();
       })
-      .then((data) => setDestinations(data))
+      .then((data) => {
+        if (data.destinations && Array.isArray(data.destinations)) {
+          setDestinations(data.destinations);
+        } else {
+          throw new Error("Fetched data does not contain destinations array");
+        }
+      })
       .catch((error) => console.error(error));
   }, []);
 

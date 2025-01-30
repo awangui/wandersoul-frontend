@@ -26,11 +26,6 @@ def get_users():
     users = User.query.all()
     return {"users": [user.to_dict() for user in users]}
 
-@app.route('/destinations')
-def get_destinations():
-    destinations = Destination.query.all()
-    return {"destinations": [destination.to_dict() for destination in destinations]}
-
 @app.route('/users/<int:id>')
 def get_user(id):
     user = User.query.get(id)
@@ -105,6 +100,55 @@ def login():
     except Exception as e:
         print("Error:", e)
         return {"error": str(e)}, 500
+
+@app.route('/destinations')
+def get_destinations():
+    destinations = Destination.query.all()
+    return {"destinations": [destination.to_dict() for destination in destinations]}
+
+@app.route('/destinations', methods=['POST'])
+def add_destinations():
+    try:
+        data = request.get_json() 
+        if not data or not isinstance(data, list):
+            return {"error": "Invalid request, expected a list of destinations"}, 400
+
+        new_destinations = []
+        
+        for item in data:
+            name = item.get("name")
+            description = item.get("description")
+            category = item.get("category")
+            safety_rating = item.get("safety_rating")
+            activities = item.get("activities")
+            image = item.get("image")
+
+            # Validate required fields
+            if not name or not description or not category or not safety_rating or not activities or not image:
+                return {"error": f"Invalid request, missing required data for {name}"}, 400
+
+            new_destination = Destination(
+                name=name,
+                description=description,
+                category=category,
+                safety_rating=safety_rating,
+                activities=activities,
+                image=image
+            )
+            db.session.add(new_destination)
+            new_destinations.append(new_destination)
+
+        db.session.commit()
+
+        return {"message": f"Successfully added {len(new_destinations)} destinations", 
+                "destinations": [dest.to_dict() for dest in new_destinations]}, 201
+
+    except Exception as e:
+        print("Error:", e)
+        return {"error": str(e)}, 500
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5555)
