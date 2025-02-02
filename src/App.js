@@ -7,32 +7,32 @@ import Login from "./pages/Authentication/Login";
 import SignUp from "./pages/Authentication/Sign-up";
 import About from "./pages/About";
 import Destinations from "./pages/Destination/Destinations"
+import DestinationDetail from "./pages/Destination/DestinationDetail"
 import Footer from "./components/layout/Footer/Footer";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 function App() {
   return (
     <Router>
-
-    <Navbar />
-    
-    <Routes>
-      <Route path="/about" element={<About />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/destinations" element={<Destinations/>}/>
-      <Route path="/" element={
-        <>
-          <Hero />
-          <div className="container">
-            <Features />
-            <Benefits />
-            <Reviews />
-            <h1>Destinations</h1>
-            <button className="btn">Load Destinations</button>
-          </div>
-        </>
-      } />
-    </Routes>
+       <Navbar />
+  <Routes>
+  <Route exact path="/destinations" element={<Destinations />} />
+  <Route path="/destinations/:id" element={<DestinationDetail />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<SignUp />} />
+  <Route path="/" element={
+    <>
+      <Hero />
+      <div className="container">
+        <Features />
+        <Benefits />
+        <Reviews />
+        <h1>Destinations</h1>
+        <button className="btn">Load Destinations</button>
+      </div>
+    </>
+  } />
+  </Routes>
     <Footer />
     </Router>
   );

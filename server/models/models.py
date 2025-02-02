@@ -3,11 +3,11 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = 'users'
     id=db.Column(db.Integer,primary_key=True)
-    fname=db.Column(db.String(100),nullable=False)
-    sname=db.Column(db.String(100),nullable=False)
-    email=db.Column(db.String(100),nullable=False)
-    password=db.Column(db.String(100),nullable=False)
-    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False)
+    fname=db.Column(db.String(50),nullable=False)
+    sname=db.Column(db.String(50),nullable=False)
+    email=db.Column(db.String(100),unique=True, nullable=False)
+    password=db.Column(db.String(200),nullable=False)
+    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'),nullable=False, default=2)
     created_at=db.Column(db.DateTime,server_default=db.func.now())
     # role=db.relationship('Role',backref='users',lazy=True)
     def to_dict(self):

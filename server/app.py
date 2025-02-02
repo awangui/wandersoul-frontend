@@ -3,20 +3,29 @@ from flask_migrate import Migrate
 from config import Config
 from models.models import db, User, Destination 
 from flask_cors import CORS
+from flask import Flask, request, jsonify
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity
+)
 import bcrypt
 # from faker import Faker
 from flask import request
 
 app = Flask(__name__)
 app.config.from_object(Config)
-CORS(app)
-
-db.init_app(app)  # Initialize DB before running migrations
+CORS(app, supports_credentials=True)
+#Configure JWT
+app.config['JWT_SECRET_KEY'] = 'super'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600
+jwt = JWTManager(app)
+# Initialize DB before running migrations
+db.init_app(app)  
 migrate = Migrate(app, db)
-# Create the tables in the database (if they don't exist)
+# Create the tables in the database 
 with app.app_context():
     db.create_all()
 
+#routes
 @app.route('/')
 def home():
     return "Welcome to Wandersoul!"
@@ -39,7 +48,7 @@ def create_user():
         sname = data.get("sname")
         email = data.get("email")
         password = data.get("password")
-        role_id = data.get("role_id")
+        role_id = data.get("role_id", 2)  # Default role is 2 (user)
         # Perform validation
         if not data:
             return {"error": "Invalid request, no data provided"}, 400
@@ -60,7 +69,6 @@ def create_user():
         #email validation
         if "@" not in email or "." not in email:
             return {"error": "Invalid email"}, 400
-   
         # Check if email already exists
         if User.query.filter_by(email=email).first():
             return {"error": "Invalid request, email already exists"}, 400
@@ -68,7 +76,7 @@ def create_user():
         password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
         # Create new user object
-        new_user = User(fname=fname, sname=sname, email=email, password=password, role_id=role_id or 1)
+        new_user = User(fname=fname, sname=sname, email=email, password=password, role_id=role_id)
 
         db.session.add(new_user)  # Add new user to database session
         db.session.commit()
@@ -76,7 +84,7 @@ def create_user():
         return new_user.to_dict(), 201  # Return user object with success code
 
     except Exception as e:
-        print("Error:", e)  # Debugging
+        print("Error:", e) # Print any errors to console
         return {"error": str(e)}, 500
 
 # Login route
@@ -96,15 +104,43 @@ def login():
             return {"error": "Invalid email or password"}, 400
         if not bcrypt.checkpw(password.encode(), user.password.encode()):
             return {"error": "Invalid email or password"}, 400
-        return user.to_dict()
+        #create JWT access token    
+        access_token=create_access_token(identity={"id": user.id, "role_id": user.role_id})
+
+        return {"token": access_token, "user": user.to_dict()}, 200
     except Exception as e:
         print("Error:", e)
         return {"error": str(e)}, 500
+#protected route
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity() # Get the identity of the current user
+    user_id=current_user["id"]
+    role_id = current_user["role_id"]
+    user = User.query.get(current_user["id"])
+    if not user:
+        return {"error": "User not found"}, 404
+    return jsonify({
+        "message": "You are authorized",
+        "user": user.to_dict(),
+        "role":"admin" if role_id==1 else "user"
+    }),200
 
 @app.route('/destinations')
 def get_destinations():
     destinations = Destination.query.all()
     return {"destinations": [destination.to_dict() for destination in destinations]}
+
+#get a single destination
+@app.route('/destinations/<int:id>', methods=['GET'])
+@jwt_required()
+def get_destination(id):
+    destination = Destination.query.get(id)
+    if not destination:
+        return jsonify({"error": "Destination not found"}), 404
+
+    return jsonify(destination.to_dict()), 200
 
 @app.route('/destinations', methods=['POST'])
 def add_destinations():

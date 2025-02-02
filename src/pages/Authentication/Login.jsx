@@ -19,8 +19,9 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem('token', data.token);
-                window.location.href = '/';
+                localStorage.setItem('token', data.token); //save the JWT token in local storage
+                localStorage.setItem('user', JSON.stringify(data.user)); //save the user object in local storage
+                window.location.href = '/';//redirect to the home page
             } else {
                 setResponseMessage(data.error || 'An error occurred.');
             }
