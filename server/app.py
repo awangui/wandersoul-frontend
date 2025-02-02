@@ -183,7 +183,22 @@ def add_destinations():
     except Exception as e:
         print("Error:", e)
         return {"error": str(e)}, 500
-
+#admin routes
+@app.route('/admin', methods=['GET'])
+@jwt_required()
+def admin():
+    current_user = get_jwt_identity()
+    role_id = current_user["role_id"]
+    user = User.query.get(current_user["id"])
+    if not user:
+        return {"error": "User not found"}, 404
+    if role_id != 1:
+        return {"error": "You are not authorized to access this route"}, 401
+    return jsonify({
+        "message": "You are authorized",
+        "user": user.to_dict(),
+        "role":"admin" if role_id==1 else "user"
+    }),200
 
 
 

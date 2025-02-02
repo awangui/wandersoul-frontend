@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +23,14 @@ const Login = () => {
             if (response.ok) {
                 localStorage.setItem('token', data.token); //save the JWT token in local storage
                 localStorage.setItem('user', JSON.stringify(data.user)); //save the user object in local storage
-                window.location.href = '/';//redirect to the home page
+                if (data.user.role_id === 1) {
+                    navigate('/admin'); //redirect to the admin page
+                    return;
+                } else if (data.user.role_id === 2) {
+                    navigate('/'); //redirect to the home page
+                } else {
+                    setResponseMessage(data.error || 'An error occurred.');
+                }
             } else {
                 setResponseMessage(data.error || 'An error occurred.');
             }

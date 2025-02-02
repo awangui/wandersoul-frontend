@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Destinations from "./pages/Destination/Destinations"
 import DestinationDetail from "./pages/Destination/DestinationDetail"
 import Footer from "./components/layout/Footer/Footer";
+import Dashboard from "./pages/Admin/Dashboard";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
   <Routes>
   <Route exact path="/destinations" element={<Destinations />} />
   <Route path="/destinations/:id" element={<DestinationDetail />} />
+  <Route path="/admin" element={<Dashboard />} />
   <Route path="/about" element={<About />} />
   <Route path="/login" element={<Login />} />
   <Route path="/signup" element={<SignUp />} />
