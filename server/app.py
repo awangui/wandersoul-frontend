@@ -4,6 +4,7 @@ from config import Config
 from models.models import db, User, Destination 
 from flask_cors import CORS
 from flask import Flask, request, jsonify
+import os
 from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required, get_jwt_identity
 )
@@ -15,7 +16,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app, supports_credentials=True)
 #Configure JWT
-app.config['JWT_SECRET_KEY'] = 'super'
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600
 jwt = JWTManager(app)
 # Initialize DB before running migrations
