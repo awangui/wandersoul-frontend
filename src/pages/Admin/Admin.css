@@ -1,0 +1,36 @@
+.side-nav {
+    width: 20vw;
+    background-color: var(--primary-color);
+    height: 100vh; /* Full height */
+    padding-top: 20px; /* Add some padding at the top */
+}
+
+.side-nav .nav-link {
+    color: white; /* Change link color */
+    padding: 10px 15px;
+     /* Add padding to links */
+}
+
+.side-nav .nav-link:hover {
+    background-color: var(--secondary-color); /* Change background on hover */
+    color: white; /* Ensure text color remains white */
+}
+.dashboard {
+    display: flex;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background color for content area */
+    height: 100vh; /* Full height */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.content h2 {
+    margin-top: 0;
+}
+
+.content p {
+    margin: 10px 0;
+}

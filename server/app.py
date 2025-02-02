@@ -31,15 +31,15 @@ with app.app_context():
 def home():
     return "Welcome to Wandersoul!"
 
-@app.route('/users')
-def get_users():
-    users = User.query.all()
-    return {"users": [user.to_dict() for user in users]}
+# @app.route('/users')
+# def get_users():
+#     users = User.query.all()
+#     return {"users": [user.to_dict() for user in users]}
 
-@app.route('/users/<int:id>')
-def get_user(id):
-    user = User.query.get(id)
-    return user.to_dict()
+# @app.route('/users/<int:id>')
+# def get_user(id):
+#     user = User.query.get(id)
+#     return user.to_dict()
 
 @app.route('/users', methods=['POST'])
 def create_user():
@@ -200,7 +200,23 @@ def admin():
         "role":"admin" if role_id==1 else "user"
     }),200
 
-
-
+@app.route('/admin/users', methods=['GET'])
+@jwt_required()
+def get_users():
+    current_user = get_jwt_identity()
+    role_id = current_user["role_id"]
+    if role_id != 1:
+        return {"error": "You are not authorized to access this route"}, 401
+    users = User.query.all()
+    return {"users": [user.to_dict() for user in users]}
+@app.route('/admin/destinations', methods=['GET'])
+@jwt_required()
+def get_admin_destinations():
+    current_user = get_jwt_identity()
+    role_id = current_user["role_id"]
+    if role_id != 1:
+        return {"error": "You are not authorized to access this route"}, 401
+    destinations = Destination.query.all()
+    return {"destinations": [destination.to_dict() for destination in destinations]}
 if __name__ == '__main__':
     app.run(debug=True, port=5555)

@@ -9,7 +9,9 @@ import About from "./pages/About";
 import Destinations from "./pages/Destination/Destinations"
 import DestinationDetail from "./pages/Destination/DestinationDetail"
 import Footer from "./components/layout/Footer/Footer";
+import AdminDestinations from "./pages/Admin/AdminDestinations";
 import Dashboard from "./pages/Admin/Dashboard";
+import Users from "./pages/Admin/Users";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
   <Route path="/about" element={<About />} />
   <Route path="/login" element={<Login />} />
   <Route path="/signup" element={<SignUp />} />
+  <Route path="/admin/destinations" element={<AdminDestinations />} />
+  <Route path="/admin/users" element={<Users />} />
+
+
   <Route path="/" element={
     <>
       <Hero />
