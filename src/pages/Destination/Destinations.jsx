@@ -6,7 +6,7 @@ const Destinations = () => {
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
-     const token = localStorage.getItem("token");
+    //  const token = localStorage.getItem("token");
     fetch(`${API_BASE_URL}/destinations`)
       .then((response) => {
         if (!response.ok) {
