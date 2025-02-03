@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,send_from_directory
 from flask_migrate import Migrate
 from server.config import Config
 from server.models.models import db, User, Destination 
@@ -12,7 +12,8 @@ import bcrypt
 # from faker import Faker
 from flask import request
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
 app.config.from_object(Config)
 CORS(app, supports_credentials=True)
 #Configure JWT
@@ -27,9 +28,9 @@ with app.app_context():
     db.create_all()
 
 #routes
-@app.route('/')
-def home():
-    return "Welcome to Wandersoul!"
+@app.route("/")
+def serve_react():
+    return send_from_directory(app.static_folder, "index.html")
 
 # @app.route('/users')
 # def get_users():
@@ -220,4 +221,4 @@ def get_admin_destinations():
     return {"destinations": [destination.to_dict() for destination in destinations]}
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+    app.run(debug=True)

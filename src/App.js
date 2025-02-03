@@ -32,11 +32,8 @@ function App() {
     <>
       <Hero />
       <div className="container">
-        <Features />
         <Benefits />
         <Reviews />
-        <h1>Destinations</h1>
-        <button className="btn">Load Destinations</button>
       </div>
     </>
   } />

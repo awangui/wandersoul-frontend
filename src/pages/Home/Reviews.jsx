@@ -1,6 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Reviews.css';
 
 const reviews = [
     {
@@ -8,7 +9,7 @@ const reviews = [
         name: 'John Doe',
         location: 'New York, USA',
         rating: 5,
-        photo: 'https://via.placeholder.com/150',
+        photo: 'https://plus.unsplash.com/premium_photo-1679325901535-e7ecfda35e68?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         review: 'This was an amazing experience! Highly recommend to everyone.'
     },
     {
@@ -16,7 +17,7 @@ const reviews = [
         name: 'Jane Smith',
         location: 'London, UK',
         rating: 4,
-        photo: 'https://via.placeholder.com/150',
+        photo: 'https://plus.unsplash.com/premium_photo-1679325901535-e7ecfda35e68?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         review: 'Great service and friendly staff. Will definitely come back.'
     },
     {
@@ -24,7 +25,7 @@ const reviews = [
         name: 'Carlos Garcia',
         location: 'Madrid, Spain',
         rating: 5,
-        photo: 'https://via.placeholder.com/150',
+        photo: 'https://plus.unsplash.com/premium_photo-1679325901535-e7ecfda35e68?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         review: 'A wonderful adventure from start to finish!'
     }
 ];
