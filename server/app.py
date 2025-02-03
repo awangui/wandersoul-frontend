@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
-from config import Config
+from server.config import Config
 from models.models import db, User, Destination 
 from flask_cors import CORS
 from flask import Flask, request, jsonify
@@ -218,5 +218,6 @@ def get_admin_destinations():
         return {"error": "You are not authorized to access this route"}, 401
     destinations = Destination.query.all()
     return {"destinations": [destination.to_dict() for destination in destinations]}
+
 if __name__ == '__main__':
     app.run(debug=True, port=5555)
