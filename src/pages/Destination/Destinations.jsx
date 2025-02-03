@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Destinations.css"; 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
+import API_BASE_URL from "../../config";
+
+fetch(`${API_BASE_URL}/api/some-endpoint`)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
 
 const Destinations = () => {
   const [destinations, setDestinations] = useState([]);

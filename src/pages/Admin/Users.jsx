@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Users.css";
 import './Admin.css';
 import SideNav from "./SideNav";
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
+import API_BASE_URL from "../../config";
 const Users = () => {
     const [users, setUsers] = useState([]);
     useEffect(() => {

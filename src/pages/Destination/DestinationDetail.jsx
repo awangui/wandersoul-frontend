@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
+import API_BASE_URL from "../../config";
 const DestinationDetail = () => {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);

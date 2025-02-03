@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
+import API_BASE_URL from "../../config";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
