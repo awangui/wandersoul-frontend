@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Destinations.css"; 
 import API_BASE_URL from "../../config";
 
-fetch(`${API_BASE_URL}/api/some-endpoint`)
+fetch(`${API_BASE_URL}/destinations`)
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
