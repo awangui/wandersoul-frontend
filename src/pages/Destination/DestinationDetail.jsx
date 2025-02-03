@@ -8,6 +8,7 @@ const DestinationDetail = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("Token:", token);  // Debugging: Check the token
     if (!token) {
       navigate("/login");
       return;
@@ -17,7 +18,7 @@ const DestinationDetail = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      credentials: 'include',  // Include credentials
+      credentials: 'include',  
     })
       .then((response) => {
         console.log("Response status:", response.status);  // Debugging: Check the response status
