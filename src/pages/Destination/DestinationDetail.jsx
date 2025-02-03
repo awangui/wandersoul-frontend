@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
 const DestinationDetail = () => {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);
@@ -13,7 +13,7 @@ const DestinationDetail = () => {
       return;
     }
 
-    fetch(`http://127.0.0.1:5555/destinations/${id}`, {
+    fetch(`${API_BASE_URL}/destinations/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

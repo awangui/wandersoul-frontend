@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './Admin.css';
 import SideNav from "./SideNav";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5555";
 
 const AdminDestinations = () => {
     const [destinations, setDestinations] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        fetch("http://127.0.0.1:5555/admin/destinations", {
+        fetch(`${API_BASE_URL}/admin/destinations`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
