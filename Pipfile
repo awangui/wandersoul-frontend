@@ -15,7 +15,6 @@ faker = "*"
 marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-marshmallow = "*"
-flask = "*"
 python-dotenv = "*"
 
 [dev-packages]
