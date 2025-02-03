@@ -1,6 +1,5 @@
 import Navbar from "./components/layout/Navbar/Navbar";
 import Hero from "./pages/Home/Hero";
-import Features from "./pages/Home/Features";
 import Benefits from "./pages/Home/Benefits";
 import Reviews from "./pages/Home/Reviews";
 import Login from "./pages/Authentication/Login";
