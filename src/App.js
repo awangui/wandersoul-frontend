@@ -7,6 +7,7 @@ import SignUp from "./pages/Authentication/Sign-up";
 import About from "./pages/About";
 import Destinations from "./pages/Destination/Destinations"
 import DestinationDetail from "./pages/Destination/DestinationDetail"
+import Guides from "./pages/Guides/Guides";
 import Footer from "./components/layout/Footer/Footer";
 import AdminDestinations from "./pages/Admin/AdminDestinations";
 import Dashboard from "./pages/Admin/Dashboard";
@@ -18,6 +19,7 @@ function App() {
        <Navbar />
   <Routes>
   <Route exact path="/destinations" element={<Destinations />} />
+  <Route path="/guides" element={<Guides />} />
   <Route path="/destinations/:id" element={<DestinationDetail />} />
   <Route path="/admin" element={<Dashboard />} />
   <Route path="/about" element={<About />} />
