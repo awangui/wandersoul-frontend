@@ -23,6 +23,7 @@ const AdminDestinations = () => {
             if (data.destinations && Array.isArray(data.destinations)) {
                 const formattedDestinations = data.destinations.map(destination => ({
                     id: destination.id,
+                    image: destination.image,
                     name: destination.name,
                     location: destination.location,
                     description: destination.description,
@@ -45,6 +46,7 @@ const AdminDestinations = () => {
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Location</th>
                                 <th>Description</th>
@@ -55,6 +57,7 @@ const AdminDestinations = () => {
                             {destinations.map((destination) => (
                                 <tr key={destination.id}>
                                     <td>{destination.id}</td>
+                                    <td><img src={destination.image} alt={destination.name} className="destination-image" /></td>
                                     <td>{destination.name}</td>
                                     <td>{destination.location}</td>
                                     <td>{destination.description}</td>

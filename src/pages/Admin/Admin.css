@@ -34,3 +34,8 @@
 .content p {
     margin: 10px 0;
 }
+.guide-image, .destination-image{
+    width:100px;
+    height:100px;
+    object-fit: cover;
+}

@@ -39,47 +39,64 @@ const AdminGuides = () => {
         .catch((error) => console.error(error));
     }, []);
 
-    return (
-        <div className="dashboard">
-            <SideNav />
-            <div className="content">
-                <div className="guides-container">
-                    <table className="guides-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Bio</th>
-                                <th>Location</th>
-                                <th>Languages</th>
-                                <th>Contact Info</th>
-                                <th>Actions</th>
+const handleDelete = (id) => {
+    const token = localStorage.getItem("token");
+    fetch(`${API_BASE_URL}/admin/guides/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Failed to delete guide");
+        }
+        setGuides(guides.filter(guide => guide.id !== id));
+        alert("Guide deleted successfully");
+    })
+    .catch((error) => console.error(error));
+};
+
+return (
+    <div className="dashboard">
+        <SideNav />
+        <div className="content">
+            <div className="guides-container">
+                <table className="guides-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Bio</th>
+                            <th>Location</th>
+                            <th>Languages</th>
+                            <th>Contact Info</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {guides.map((guide) => (
+                            <tr key={guide.id}>
+                                <td>{guide.id}</td>
+                                <td>{guide.name}</td>
+                                <td><img src={guide.image} alt={guide.name} className="guide-image" /></td>
+                                <td>{guide.bio}</td>
+                                <td>{guide.location}</td>
+                                <td>{guide.languages}</td>
+                                <td>{guide.contact_info}</td>
+                                <td>
+                                    <button className="edit-button">Edit</button>
+                                    <button className="delete-button" onClick={() => handleDelete(guide.id)}>Delete</button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {guides.map((guide) => (
-                                <tr key={guide.id}>
-                                    <td>{guide.id}</td>
-                                    <td>{guide.name}</td>
-                                    <td>{guide.description}</td>
-                                    <td><img src={guide.image} alt={guide.name} className="guide-image" /></td>
-                                    <td>{guide.bio}</td>
-                                    <td>{guide.location}</td>
-                                    <td>{guide.languages}</td>
-                                    <td>{guide.contact_info}</td>
-                                    <td>
-                                        <button className="edit-button">Edit</button>
-                                        <button className="delete-button">Delete</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
-    );
+    </div>
+);
 };
 
 export default AdminGuides;
