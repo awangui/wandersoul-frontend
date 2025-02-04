@@ -10,6 +10,7 @@ import DestinationDetail from "./pages/Destination/DestinationDetail"
 import Guides from "./pages/Guides/Guides";
 import Footer from "./components/layout/Footer/Footer";
 import AdminDestinations from "./pages/Admin/AdminDestinations";
+import AdminGuides from "./pages/Admin/AdminGuides";
 import Dashboard from "./pages/Admin/Dashboard";
 import Users from "./pages/Admin/Users";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -26,6 +27,7 @@ function App() {
   <Route path="/login" element={<Login />} />
   <Route path="/signup" element={<SignUp />} />
   <Route path="/admin/destinations" element={<AdminDestinations />} />
+  <Route path="/admin/guides" element={<AdminGuides />} />
   <Route path="/admin/users" element={<Users />} />
 
 
